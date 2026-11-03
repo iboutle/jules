@@ -23,7 +23,7 @@ USE log_mod,     ONLY: log_event, log_scratch_space, log_level_warning
 
 USE jules_surface_mod, ONLY: l_anthrop_heat_src, anthrop_heat_option, dukes,   &
                              l_flake_model, l_aggregate, l_elev_land_ice,      &
-                             l_elev_lw_down, l_point_data
+                             l_elev_lw_down
 
 IMPLICIT NONE
 
@@ -71,14 +71,6 @@ IF ( l_elev_lw_down ) THEN
   WRITE(log_scratch_space,'(I0,A,L1)') error_sum,                              &
      ": Downward adjustment of longwave radiation for elevated tiles " //      &
      "is not available to LFRic. l_elev_lw_down = ", l_elev_lw_down
-  CALL log_event(RoutineName//": "//TRIM(log_scratch_space), log_level_warning)
-END IF
-
-IF ( l_point_data ) THEN
-  error_sum = error_sum + 1
-  WRITE(log_scratch_space,'(I0,A,L1)') error_sum,                              &
-     ": It is not possible to use point rainfall data with LFRic. " //         &
-     "l_point_data = ", l_point_data
   CALL log_event(RoutineName//": "//TRIM(log_scratch_space), log_level_warning)
 END IF
 
